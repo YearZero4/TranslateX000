@@ -10,7 +10,7 @@ def translate(texto, i1, i2):
  traduccion = data['sentences']
  trans0=''
  for i in enumerate(traduccion):
-  trans0+=traduccion[i[0]]['trans']
+  trans0+=traduccion[i[0]]['trans'].encode('utf-8').decode('utf-8')
  return trans0
 
 @app.route('/favicon.ico')
