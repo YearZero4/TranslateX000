@@ -2,15 +2,17 @@ from flask import Flask, render_template, request, Response
 import os, requests
 
 app = Flask(__name__)
-
 def translate(texto, i1, i2):
  url = f"https://translate.google.com/translate_a/single?client=at&dt=t&dt=ld&dt=qca&dt=rm&dj=1&hl=es&ie=UTF-8&oe=UTF-8&ome=auto&otf=1&q={texto}&sl={i1}&tl={i2}"
  response = requests.get(url)
- data = response.json()
- traduccion = data['sentences']
- trans0=''
- for i in enumerate(traduccion):
-  trans0+=traduccion[i[0]]['trans'].encode('utf-8').decode('utf-8')
+ try:
+ 	data = response.json()
+ 	traduccion = data['sentences']
+ 	trans0=''
+ 	for i in enumerate(traduccion):
+ 	 trans0+=traduccion[i[0]]['trans'].encode('utf-8').decode('utf-8')
+ except:
+ 	trans0='Ocurrio un error inesperado...'
  return trans0
 
 @app.route('/favicon.ico')
